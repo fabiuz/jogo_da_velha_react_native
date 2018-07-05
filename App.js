@@ -22,10 +22,7 @@ export default class JogoDaVelha extends Component {
             c1: '',
             c2: '',
             c3: '',
-            tabuleiro: [,]
         };
-
-
     }
 
     clicou(p) {
