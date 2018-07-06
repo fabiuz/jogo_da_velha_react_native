@@ -699,7 +699,6 @@ export default class JogoDaVelha extends Component {
         let marcacoes_do_jogador = new Array(8);
         let marcacoes_do_computador = new Array(8);
 
-
         // Cada célula terá um índice, então, podemos sortear uma célula vazia
         let marcacoes_vazias = [];
 
@@ -722,9 +721,11 @@ export default class JogoDaVelha extends Component {
 
                 if (this.state.tabuleiro[linha][coluna] === 'x') {
                     qt_marcacoes_do_jogador++;
-                } else if (this.state.tabuleiro[linha][coluna] === 'o') {
+                }
+                else if (this.state.tabuleiro[linha][coluna] === 'o') {
                     qt_marcacoes_do_computador++;
-                } else if (this.state.tabuleiro[linha][coluna] === '') {
+                }
+                else if (this.state.tabuleiro[linha][coluna] === '') {
                     marcacoes_vazias.push(id_celula);
                 }
             }
@@ -886,59 +887,52 @@ export default class JogoDaVelha extends Component {
             console.log("indice_a_ser_marcado: " + indice_a_ser_marcado);
             switch (indice_a_ser_marcado) {
                 // Linha.
-                case 0:
-                case 1:
-                case 2:
-                    {
-                        let linha = indice_a_ser_marcado;
-                        for (let coluna = 0; coluna < 3; coluna++) {
-                            if (this.state.tabuleiro[linha][coluna] === '') {
-                                this.state.tabuleiro[linha][coluna] = 'o';
-                                break;
-                            }
+                case 0: case 1: case 2: {
+                    let linha = indice_a_ser_marcado;
+                    for (let coluna = 0; coluna < 3; coluna++) {
+                        if (this.state.tabuleiro[linha][coluna] === '') {
+                            this.state.tabuleiro[linha][coluna] = 'o';
+                            break;
                         }
                     }
+                }
                     break;
-                    // Coluna:
-                case 3:
-                case 4:
-                case 5:
-                    {
-                        coluna = indice_a_ser_marcado % 3;
-                        for (let linha = 0; linha < 3; linha++) {
-                            if (this.state.tabuleiro[linha][coluna] === '') {
-                                this.state.tabuleiro[linha][coluna] = 'o';
-                                break;
-                            }
+                // Coluna:
+                case 3: case 4: case 5: {
+                    coluna = indice_a_ser_marcado % 3;
+                    for (let linha = 0; linha < 3; linha++) {
+                        if (this.state.tabuleiro[linha][coluna] === '') {
+                            this.state.tabuleiro[linha][coluna] = 'o';
+                            break;
                         }
                     }
+                }
                     break;
-                    // Diagonal superior esquerda a diagonal inferior direita.
-                case 6:
-                    {
-                        for (let linha_coluna = 0; linha_coluna < 3; linha_coluna++) {
-                            if (this.state.tabuleiro[linha_coluna][linha_coluna] === '') {
-                                this.state.tabuleiro[linha_coluna][linha_coluna] = 'o';
-                                break;
-                            }
+                // Diagonal superior esquerda a diagonal inferior direita.
+                case 6: {
+                    for (let linha_coluna = 0; linha_coluna < 3; linha_coluna++) {
+                        if (this.state.tabuleiro[linha_coluna][linha_coluna] === '') {
+                            this.state.tabuleiro[linha_coluna][linha_coluna] = 'o';
+                            break;
                         }
                     }
+                }
                     break;
-                    // Diagonal superior direita a diagonal inferior esquerda.
-                case 7:
-                    {
-                        let coluna = 2;
-                        for (let linha = 0; linha < 3; linha++) {
-                            if (this.state.tabuleiro[linha][coluna] === '') {
-                                this.state.tabuleiro[linha][coluna] = 'o';
-                                break;
-                            }
-                            coluna--;
+                // Diagonal superior direita a diagonal inferior esquerda.
+                case 7: {
+                    let coluna = 2;
+                    for (let linha = 0; linha < 3; linha++) {
+                        if (this.state.tabuleiro[linha][coluna] === '') {
+                            this.state.tabuleiro[linha][coluna] = 'o';
+                            break;
                         }
+                        coluna--;
                     }
+                }
                     break;
             }
-        } else {
+        }
+        else {
             // Só iremos atribuir a tabuleiro se houver marcacoes_vazias.
             if (marcacoes_vazias.length > 0) {
                 // Então, devemos escolher uma célula vazia aleatoriamente.
@@ -962,231 +956,211 @@ export default class JogoDaVelha extends Component {
             }
         }
 
-
         // Atualiza pra aparecer na tela.
         this.setState(this.state);
     }
 
-
-
-    resetar() {
-        let state = this.state;
-
-        state.ganhador = '';
-        state.status = 1;
-        state.aviso = '';
-        state.empate = '';
-        state.vez = 'x';
-        state.a1 = '';
-        state.a2 = '';
-        state.a3 = '';
-        state.b1 = '';
-        state.b2 = '';
-        state.b3 = '';
-        state.c1 = '';
-        state.c2 = '';
-        state.c3 = '';
-
-        this.setState(state);
-    }
+    // resetar() {
+    //     let state = this.state;
+    //
+    //     state.ganhador = '';
+    //     state.status = 1;
+    //     state.aviso = '';
+    //     state.empate = 'nao';
+    //     state.vez = 'x';
+    //     state.a1 = '';
+    //     state.a2 = '';
+    //     state.a3 = '';
+    //     state.b1 = '';
+    //     state.b2 = '';
+    //     state.b3 = '';
+    //     state.c1 = '';
+    //     state.c2 = '';
+    //     state.c3 = '';
+    //
+    //     this.setState(state);
+    // }
 
     render() {
-            return ( <
-                View style = { styles.container } >
-                <
-                View style = { styles.area } >
-                <
-                View style = {
-                    [styles.velhaVertical, { borderLeftWidth: 0 }] } >
-                <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        //this.clicou('a1');
-                        this.clicou_na_celula(0);
+        return (
+            <View style={styles.container}>
+                <View style={styles.area}>
+                    <View style={[styles.velhaVertical, { borderLeftWidth: 0 }]}>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                //this.clicou('a1');
+                                this.clicou_na_celula(0);
 
-                    }
-                }
-                style = {
-                    [styles.velhaHorizontal, { borderTopWidth: 0 }] } >
-                <
-                View > { this.state.tabuleiro[0][0] === 'x' && < X / > } { this.state.tabuleiro[0][0] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou_na_celula(3);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[1][0] === 'x' && < X / > } { this.state.tabuleiro[1][0] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou_na_celula(6);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[2][0] === 'x' && < X / > } { this.state.tabuleiro[2][0] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                /View> <
-                View style = { styles.velhaVertical } >
-                <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou_na_celula(1);
-                    }
-                }
-                style = {
-                    [styles.velhaHorizontal, { borderTopWidth: 0 }] } >
-                <
-                View > { this.state.tabuleiro[0][1] === 'x' && < X / > } { this.state.tabuleiro[0][1] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou_na_celula(4);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[1][1] === 'x' && < X / > } { this.state.tabuleiro[1][1] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou_na_celula(7);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[2][1] === 'x' && < X / > } { this.state.tabuleiro[2][1] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                /View> <
-                View style = { styles.velhaVertical } >
-                <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou('c1');
-                        this.clicou_na_celula(2);
-                    }
-                }
-                style = {
-                    [styles.velhaHorizontal, { borderTopWidth: 0 }] } >
-                <
-                View > { this.state.tabuleiro[0][2] === 'x' && < X / > } { this.state.tabuleiro[0][2] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou('c2');
-                        this.clicou_na_celula(5);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[1][2] === 'x' && < X / > } { this.state.tabuleiro[1][2] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                TouchableHighlight underlayColor = "#eeeeee"
-                onPress = {
-                    () => {
-                        this.clicou('c3');
-                        this.clicou_na_celula(8);
-                    }
-                }
-                style = { styles.velhaHorizontal } >
-                <
-                View > { this.state.tabuleiro[2][2] === 'x' && < X / > } { this.state.tabuleiro[2][2] === 'o' && < O / > } <
-                /View> <
-                /TouchableHighlight> <
-                /View> <
-                /View> <
-                View style = { styles.infoArea } >
-                <
-                View style = { styles.infoVez } >
-                <
-                Text > Vez de: < /Text> { this.state.vez === 'x' && < X / > } { this.state.vez === 'o' && < O / > } <
-                /View> <
-                View style = { styles.infoAviso } > { this.state.ganhador === 'x' && < X / > } { this.state.ganhador === 'o' && < O / > } {
-                    this.state.ganhador !== '' && < Text > GANHOU < /Text>} {
-                        this.state.empate !== '' && < Text > ** EMPATE ** < /Text>} <
-                            /View> <
-                            /View>
+                            }} style={[styles.velhaHorizontal, { borderTopWidth: 0 }]}>
+                            <View>
+                                {this.state.tabuleiro[0][0] === 'x' && <X />}
+                                {this.state.tabuleiro[0][0] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
 
-                        <
-                        View style = { styles.reset_button } >
-                            <
-                            Button title = "Resetar"
-                        onPress = {
-                            () => {
-                                this.resetar();
-                                this.resetar_tabuleiro();
-                            }
-                        }
-                        /> <
-                        /View>
+                            onPress={() => {
+                                this.clicou_na_celula(3);
+                            }}
+                            style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[1][0] === 'x' && <X />}
+                                {this.state.tabuleiro[1][0] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(6);
+                            }} style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[2][0] === 'x' && <X />}
+                                {this.state.tabuleiro[2][0] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.velhaVertical}>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(1);
+                            }} style={[styles.velhaHorizontal, { borderTopWidth: 0 }]}>
+                            <View>
+                                {this.state.tabuleiro[0][1] === 'x' && <X />}
+                                {this.state.tabuleiro[0][1] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(4);
+                            }} style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[1][1] === 'x' && <X />}
+                                {this.state.tabuleiro[1][1] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(7);
+                            }} style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[2][1] === 'x' && <X />}
+                                {this.state.tabuleiro[2][1] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.velhaVertical}>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(2);
+                            }} style={[styles.velhaHorizontal, { borderTopWidth: 0 }]}>
+                            <View>
+                                {this.state.tabuleiro[0][2] === 'x' && <X />}
+                                {this.state.tabuleiro[0][2] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(5);
+                            }} style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[1][2] === 'x' && <X />}
+                                {this.state.tabuleiro[1][2] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            underlayColor="#eeeeee"
+                            onPress={() => {
+                                this.clicou_na_celula(8);
+                            }} style={styles.velhaHorizontal}>
+                            <View>
+                                {this.state.tabuleiro[2][2] === 'x' && <X />}
+                                {this.state.tabuleiro[2][2] === 'o' && <O />}
+                            </View>
+                        </TouchableHighlight>
+                    </View>
+                </View>
+                <View style={styles.infoArea}>
+                    <View style={styles.infoVez}>
+                        <Text>Vez de:</Text>
+                        {this.state.vez === 'x' && <X />}
+                        {this.state.vez === 'o' && <O />}
+                    </View>
+                    <View style={styles.infoAviso}>
+                        {this.state.ganhador === 'x' && <X />}
+                        {this.state.ganhador === 'o' && <O />}
+                        {this.state.ganhador !== '' && <Text>GANHOU</Text>}
+                        {this.state.empate === 'sim' && <Text>** EMPATE **</Text>}
+                    </View>
+                </View>
 
-                        <
-                        /View>
-                    );
-                }
-            }
+                <View style={styles.reset_button} >
+                    <Button title="Resetar" onPress={() => {
+                        //this.resetar();
+                        this.resetar_tabuleiro();
+                    }} />
+                </View>
 
-            const styles = StyleSheet.create({
-                container: {
-                    flex: 1,
-                    alignItems: 'center',
-                    padding: 20,
-                },
-                area: {
-                    width: 300,
-                    height: 300,
-                    flexDirection: 'row',
-                },
-                velhaVertical: {
-                    flex: 1,
-                    borderLeftWidth: 5,
-                    borderLeftColor: '#000',
-                },
-                velhaHorizontal: {
-                    flex: 1,
-                    borderTopWidth: 5,
-                    borderTopColor: '#000000',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                infoArea: {
-                    marginTop: 30,
-                    flexDirection: 'row',
-                },
-                infoVez: {
-                    width: 90,
-                    height: 90,
-                    backgroundColor: '#cccccc',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                infoAviso: {
-                    flex: 1,
-                    backgroundColor: '#eee',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                reset_button: {
-                    marginTop: 10,
-                }
+            </View>
+        );
+    }
+}
 
-            });
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 20,
+    },
+    area: {
+        width: 300,
+        height: 300,
+        flexDirection: 'row',
+    },
+    velhaVertical: {
+        flex: 1,
+        borderLeftWidth: 5,
+        borderLeftColor: '#000',
+    },
+    velhaHorizontal: {
+        flex: 1,
+        borderTopWidth: 5,
+        borderTopColor: '#000000',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    infoArea: {
+        marginTop: 30,
+        flexDirection: 'row',
+    },
+    infoVez: {
+        width: 90,
+        height: 90,
+        backgroundColor:
+            '#cccccc',
+        justifyContent:
+            'center',
+        alignItems:
+            'center',
+    },
+    infoAviso: {
+        flex: 1,
+        backgroundColor:
+            '#eee',
+        justifyContent:
+            'center',
+        alignItems:
+            'center',
+    },
+    reset_button: {
+        marginTop: 10,
+    }
+
+})
+    ;
